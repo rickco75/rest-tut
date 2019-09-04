@@ -1,2 +1,2 @@
 # rest-tut
-MERN Rest Tutorial with mongoose
+EXPRESS Rest Tutorial with mongoose
