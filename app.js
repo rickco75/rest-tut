@@ -16,6 +16,11 @@ mongoose.connect(process.env.DB_CONNECTION,{
     console.log('connected to DB!')
 });
 
+var server = app.listen(8080, function () {
+    var port = server.address().port;
+    console.log("Server is running on port: " + port);
+});
+
 
 //import routes
 const postsRoute = require('./routes/posts');
