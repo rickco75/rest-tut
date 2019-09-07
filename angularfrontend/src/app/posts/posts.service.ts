@@ -13,7 +13,7 @@ export class PostsService {
   getCurrentUrl() {
     if (window.location.href.includes('4200')) {
       this.postUrl = "http://localhost:8080/posts";
-      console.log("Angular Application running on port: 4200");
+      //console.log("Angular Application running on port: 4200");
     }
   }
 
