@@ -21,10 +21,14 @@ mongoose.connect("mongodb+srv://dbuser:Password1!@cluster0-07acw.mongodb.net/tes
     console.log('connected to DB!')
 });
 
-var server = app.listen(8080, function () {
-    var port = server.address().port;
-    console.log("Server is running on port: " + port);
-});
+
+var server = app.listen(process.env.PORT || 8080);
+var port = server.address().port;
+console.log("running on port: " + port);
+// var server = app.listen(8080, function () {
+//     var port = server.address().port;
+//     console.log("Server is running on port: " + port);
+// });
 
 
 //import routes
