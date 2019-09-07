@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
-import { Post } from '../post';
+import { Posts } from '../post';
+import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-posts',
@@ -10,19 +13,64 @@ import { Post } from '../post';
 })
 export class PostsComponent implements OnInit {
 
-  posts: Post[];
-  
-  constructor(private postService: PostsService) { }
+  private postUrl = '/api/posts';
+  posts: Posts[];
+  newPost: Posts = new Posts();
+  updatedPost: Posts = new Posts();
+
+
+
+  constructor(private postService: PostsService, private httpClient: HttpClient, private http: Http, private router: Router) {
+    this.getCurrentUrl();
+  }
+
+  getCurrentUrl() {
+    if (window.location.href.includes('4200')) {
+      this.postUrl = "http://localhost:8080/posts";
+      console.log("Angular Application running on port: 4200");
+    }
+  }
+
+  getPosts() {
+    this.httpClient
+      .get<Posts[]>(this.postUrl)
+      .subscribe(result => (this.posts = result));
+    console.log(this.posts);
+  }
+
+  addPost() {
+    this.httpClient
+      .post<Posts>(this.postUrl, this.newPost)
+      .subscribe(result => this.getPosts());
+
+  }
+
+  deletePost(id) {
+    if (confirm('Are you sure? This operation cannot be undone.')){      
+      this.http
+        .delete(this.postUrl + "/" + id)
+        .subscribe(result => this.getPosts());
+    }
+  }
+
+  updatePost(id) {
+    if (confirm('Are you sure? ')){      
+      this.http
+        .patch(this.postUrl + "/" + id,this.updatedPost)
+        .subscribe(result => this.getPosts());
+    }
+  }  
+
 
   ngOnInit() {
 
     this.postService
-    .getContacts()
-    .then((posts: Post[]) => {
-      this.posts = posts.map((post) => {
-        return post;
+      .getPosts()
+      .then((posts: Posts[]) => {
+        this.posts = posts.map((post) => {
+          return post;
+        });
       });
-    });
   }
 
 }

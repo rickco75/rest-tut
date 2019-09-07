@@ -48,7 +48,12 @@ router.delete('/:postId', async (req,res) =>{
 
 router.patch('/:postId', async (req,res) => {
    try{
+    console.log("postId: " + req.params.postId);
+    console.log("title: " + req.body.title);
+    console.log("description: " + req.body.description);
+
     let updatedpost = await Post.updateOne(
+        
        { _id: req.params.postId }, 
        {$set: {title:req.body.title,
                 description:req.body.description}}
