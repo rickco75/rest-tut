@@ -11,7 +11,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //connect to DB
-mongoose.connect(process.env.DB_CONNECTION,{ 
+// mongoose.connect(process.env.DB_CONNECTION,{ 
+//     useNewUrlParser: true }, () => {
+//     console.log('connected to DB!')
+// });
+
+mongoose.connect("mongodb+srv://dbuser:Password1!@cluster0-07acw.mongodb.net/test?retryWrites=true&w=majority",{ 
     useNewUrlParser: true }, () => {
     console.log('connected to DB!')
 });
