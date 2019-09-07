@@ -4,7 +4,8 @@
   "description": "MERN Rest Tutorial with mongoose",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "heroku-postbuild": "cd angularfrontend && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
     "type": "git",
